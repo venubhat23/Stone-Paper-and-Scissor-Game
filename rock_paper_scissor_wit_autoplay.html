@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock,Paper,Scissor</title>
+    <style>
+        body{
+            background-color: rgb(25, 25, 25);
+            color: white;
+            font-family: Arial;
+        }
+        .heading{
+            font-size: 30px;
+            font-weight: bold   ;
+        }
+        .move_icon{
+            height: 50px;
+        }
+        .move_btn{
+            background-color: transparent;
+            border-radius: 50%;
+            border: 3px solid white;
+            width: 120px;
+            height: 120px;
+            margin-right: 10px;
+            cursor: pointer;
+
+        }
+        .results{
+            font-weight: bold;
+            font-size: 25px;
+            margin-top: 50px;
+        }
+        .score_table{
+            margin-top: 60px;
+        }
+        .reset{
+            padding:8px 15px;
+            border: none;
+            background-color: white;
+            cursor: pointer;
+        }
+        .autoplay{
+            padding:8px 15px;
+            border: none;
+            background-color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <p class="heading">Rock Paper Scissor</p>
+    <button onclick="play_game('Rock')"  class="move_btn"><img src="icons/Rock Paper Scissors_files/Rock-emoji.png" alt="" class="move_icon"></button>
+    <button onclick="play_game('Paper')" class="move_btn"><img src="icons/Rock Paper Scissors_files/Paper-emoji.png" alt="" class="move_icon"></button>
+    <button onclick="play_game('Scissor')" class="move_btn"><img src="icons/Rock Paper Scissors_files/Scissor-emoji.png" alt="" class="move_icon"></button>
+    <p class="results"></p>
+    <p class="moves"></p>
+    <p class="score_table"></p>
+    <button onclick="score.win=0,score.lose=0,score.tie=0,localStorage.removeItem('score'),update_score()" class="reset">Reset Score</button>
+    <button class="autoplay" onclick="autoplay()">AutoPlay</button>
+
+    <script>    
+        // We stored in local storage for it sholdnt reset when refresh the page
+     let score=JSON.parse(localStorage.getItem('score'));
+     if (score===null){ 
+       score={ win:0,
+        lose:0,
+        tie:0 
+       };
+       
+     }
+     update_score();
+
+
+
+
+        function play_game(player_move) {
+            const computer = computer_move();
+            let result = '';
+            if (player_move === 'Rock') {
+                if (computer == 'Rock') {
+                    result = 'Tie';
+                    score.tie+=1
+                }
+                else if (computer == 'Paper') {
+                    result = 'You Lose';
+                    score.lose+=1
+                }   
+                else {
+                    result = 'You Win';
+                    score.win+=1
+                }
+            }
+            else if (player_move === 'Paper') {
+                if (computer == 'Rock') {
+                     result = 'You Win';
+                     score.win+=1 } 
+                    else if (computer == 'Paper') { 
+                        result = 'Tie';
+                        score.tie+=1 } 
+                    else { 
+                        result = 'You Lose';
+                        score.lose+=1 }
+            }
+            else {
+                if (computer == 'Rock') { 
+                    result = 'You Lose';
+                    score.lose+=1 } 
+                    else if (computer == 'Paper') { 
+                        result = 'You Win';
+                        score.win+=1 } 
+                    else {
+                    result = 'Tie';
+                    score.tie+=1
+                }
+            }
+            // localStorage.setItem('score',JSON.stringify(score));    
+            localStorage.setItem('score',JSON.stringify(score));
+            update_score()
+            document.querySelector('.results').innerHTML=result;
+            document.querySelector('.moves').innerHTML=`You <img src="icons/Rock Paper Scissors_files/${player_move}-emoji.png" alt="" class="move_icon"> <img src="icons/Rock Paper Scissors_files/${computer}-emoji.png" alt="" class="move_icon"> Computer`;
+            // alert(`You picked ${player_move}, Computer picked ${computer}, So ${result}
+            // Your Score is Wins:${score.win}, Lose:${score.lose}, Tie:${score.tie}`);
+        }
+function update_score(){
+    document.querySelector('.score_table').innerHTML=`Wins:${score.win}, Lose:${score.lose}, Tie:${score.tie}`
+}
+        function computer_move() {
+            let computer='';
+            let rand = Math.random()
+            if (rand < 1 / 3) {
+                computer = 'Rock'
+            }
+            else if (rand > 1 / 3 && rand < 2 / 3) {
+                computer = 'Paper'
+            }
+            else {
+                computer = 'Scissor'
+            }
+            return computer
+        }
+        let isautoplaying=false;
+        let intervalID
+    function autoplay(){
+        if (!isautoplaying){
+            intervalID= setInterval(function(){
+            const playermove=computer_move();
+
+            play_game(playermove);},1000)
+            isautoplaying=true;
+        }
+        else{
+            clearInterval(intervalID)
+            isautoplaying=false
+        
+        }
+
+
+    }
+    </script>
+</body>
+
+</html>
