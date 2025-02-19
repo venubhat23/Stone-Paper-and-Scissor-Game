@@ -22,7 +22,7 @@ This repository contains multiple versions of the classic **Rock Paper Scissors*
 ## Installation & Usage
 1. Clone the repository:
    ```sh
-   git clone https://github.com/venubhat23/codebook.git
+   git clone https://github.com/venubhat23/Stone-Paper-and-Scissor-Game.git
    ```
 2. Navigate to the project folder:
    ```sh
