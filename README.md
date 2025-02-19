@@ -39,10 +39,6 @@ This repository contains multiple versions of the classic **Rock Paper Scissors*
 - **HTML** for structure
 - **CSS** for styling
 - **JavaScript** for game logic and UI updates
-
-## License
-This project is open-source and available under the MIT License.
-
 ---
 **Happy Playing! 🎮**
 
