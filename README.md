@@ -26,7 +26,7 @@ This repository contains multiple versions of the classic **Rock Paper Scissors*
    ```
 2. Navigate to the project folder:
    ```sh
-   cd rock-paper-scissors
+   cd Stone-Paper-and-Scissor-Game
    ```
 3. Open any HTML file in a browser to play the corresponding version.
 
